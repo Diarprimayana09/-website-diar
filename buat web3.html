@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>One‑Page Web — Modern Template</title>
+  <meta name="description" content="Contoh web single-file ~300 lines. Responsive, interaktif, dan siap dikustomisasi." />
+  <style>
+    /* ---------- Reset & base ---------- */
+    :root{
+      --bg:#0f1724; /* deep navy */
+      --card:#0b1220;
+      --muted:#9aa4b2;
+      --accent:#60a5fa;
+      --accent-2:#7c3aed;
+      --glass: rgba(255,255,255,0.04);
+      --radius:14px;
+      --maxw:1100px;
+      --gap:20px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: linear-gradient(180deg,var(--bg), #071020 120%);
+      color:#e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding:32px 18px;
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
+    /* ---------- Container ---------- */
+    .wrap{max-width:var(--maxw);margin:0 auto;gap:var(--gap);display:flex;flex-direction:column}
+
+    /* ---------- Nav ---------- */
+    .nav{display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:999px;background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));backdrop-filter: blur(6px);}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{
+      width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;font-weight:700;color:#051226
+    }
+    nav ul{display:flex;gap:14px;margin:0;padding:0;list-style:none}
+    nav a{padding:8px 12px;border-radius:10px;color:var(--muted);font-weight:600}
+    nav a:hover{color:var(--accent)}
+    .cta{background:linear-gradient(90deg,var(--accent),var(--accent-2));padding:8px 12px;border-radius:10px;color:#021025;font-weight:700}
+
+    /* ---------- Hero ---------- */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;margin-top:28px}
+    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:36px;border-radius:var(--radius);box-shadow:0 10px 30px rgba(2,6,23,0.6)}
+    .title{font-size:28px;margin:0 0 8px}
+    .lead{color:var(--muted);margin:0 0 18px}
+    .btn-row{display:flex;gap:12px}
+    .btn{padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer;border:0}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),#3b82f6);color:#021025}
+    .btn-outline{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
+    /* ---------- Features ---------- */
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+    .feature{background:var(--card);padding:18px;border-radius:12px}
+    .feature h4{margin:0 0 8px}
+    .feature p{margin:0;color:var(--muted);font-size:14px}
+
+    /* ---------- Gallery ---------- */
+    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+    .card{background:var(--card);padding:12px;border-radius:12px}
+    .small{font-size:13px;color:var(--muted)}
+
+    /* ---------- Pricing ---------- */
+    .pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+    .price{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px}
+    .price .amount{font-size:22px;font-weight:800}
+    .price .perk{color:var(--muted);font-size:13px}
+
+    /* ---------- Contact ---------- */
+    .contact{display:grid;grid-template-columns:1fr 360px;gap:18px;margin-top:18px}
+    form{background:var(--card);padding:18px;border-radius:12px}
+    label{display:block;font-size:13px;margin-bottom:6px}
+    input,textarea,select{width:100%;padding:10px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:inherit}
+    .muted{color:var(--muted);font-size:13px}
+
+    /* ---------- Footer ---------- */
+    .footer{margin-top:24px;text-align:center;color:var(--muted);font-size:13px}
+
+    /* ---------- Helpers & responsive ---------- */
+    .grid-col-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:var(--glass);font-weight:700;color:var(--muted)}
+
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr}
+      .contact{grid-template-columns:1fr}
+      .features,.gallery,.pricing{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:600px){
+      body{padding:18px}
+      .features,.gallery,.pricing{grid-template-columns:1fr}
+      nav ul{display:none}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="nav">
+      <div class="brand">
+        <div class="logo">W</div>
+        <div>
+          <div style="font-weight:800">WebStarter</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:2px">single-file demo • responsive</div>
+        </div>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div style="display:flex;gap:10px;align-items:center">
+        <div class="pill">v1.0</div>
+        <button class="cta" id="toggleTheme">Dark</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero-card hero">
+        <div>
+          <h1 class="title">Bikin web keren — satu file, gampang diubah</h1>
+          <p class="lead">Template ini berisi komponen hero, fitur, galeri, pricing, dan form kontak. Cocok buat portofolio, landing page, atau tugas sekolah.</p>
+
+          <div class="btn-row">
+            <button class="btn btn-primary" id="startDemo">Mulai Demo</button>
+            <a class="btn btn-outline" href="#contact">Hubungi</a>
+          </div>
+
+          <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+            <div class="card" style="padding:10px;min-width:150px;">
+              <div style="font-weight:800">Siap pakai</div>
+              <div class="small muted">HTML • CSS • JS</div>
+            </div>
+            <div class="card" style="padding:10px;min-width:150px;">
+              <div style="font-weight:800">Ringan</div>
+              <div class="small muted">No framework, mudah dimodifikasi</div>
+            </div>
+          </div>
+        </div>
+
+        <aside>
+          <div class="card" style="height:100%;display:flex;flex-direction:column;gap:10px;justify-content:center;align-items:center">
+            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="placeholder" style="border-radius:10px;max-height:260px;object-fit:cover;">
+            <div style="text-align:center">
+              <div style="font-weight:800">Live preview</div>
+              <div class="muted" style="font-size:13px">Ganti gambar ini dengan milikmu</div>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section id="features" class="features">
+        <div class="feature">
+          <h4>Responsif</h4>
+          <p>Kamu bisa buka dari HP atau laptop — layout menyesuaikan otomatis.</p>
+        </div>
+        <div class="feature">
+          <h4>Custom mudah</h4>
+          <p>Semua ada di satu file, gampang kopas atau edit sesuai kebutuhan.</p>
+        </div>
+        <div class="feature">
+          <h4>Interaktif</h4>
+          <p>Form, tombol, dan script kecil sudah disiapkan untuk demo.</p>
+        </div>
+      </section>
+
+      <section id="gallery" class="gallery">
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="img1" style="border-radius:8px;">
+          <div style="margin-top:8px;font-weight:700">Foto pantai</div>
+          <div class="small muted">Contoh galeri — ganti sesuai kontenmu.</div>
+        </div>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="img2" style="border-radius:8px;">
+          <div style="margin-top:8px;font-weight:700">Foto kota</div>
+          <div class="small muted">Optimalkan ukuran gambar agar loading cepat.</div>
+        </div>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1520975910581-2b6d8bb0f2f3?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="img3" style="border-radius:8px;">
+          <div style="margin-top:8px;font-weight:700">Foto aktivitas</div>
+          <div class="small muted">Simpan foto di folder 'assets' kalau buat projek nyata.</div>
+        </div>
+      </section>
+
+      <section id="pricing" class="pricing">
+        <div class="price">
+          <div style="font-weight:800">Free</div>
+          <div class="amount">Rp0</div>
+          <div class="perk">Sesuai untuk latihan & tugas sekolah</div>
+        </div>
+        <div class="price">
+          <div style="font-weight:800">Pro</div>
+          <div class="amount">Rp49.000</div>
+          <div class="perk">Domain custom + support</div>
+        </div>
+        <div class="price">
+          <div style="font-weight:800">Agency</div>
+          <div class="amount">Rp299.000</div>
+          <div class="perk">Design + optimization</div>
+        </div>
+      </section>
+
+      <section id="contact" class="contact">
+        <form onsubmit="handleSubmit(event)">
+          <h3 style="margin-top:0">Hubungi aku</h3>
+          <label for="name">Nama</label>
+          <input id="name" name="name" required placeholder="Nama lengkap" />
+
+          <div class="grid-col-2" style="margin-top:10px">
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" required placeholder="nama@contoh.com" />
+            </div>
+            <div>
+              <label for="phone">No. HP</label>
+              <input id="phone" name="phone" placeholder="08xxxxxxxxxx" />
+            </div>
+          </div>
+
+          <label for="message" style="margin-top:10px">Pesan</label>
+          <textarea id="message" name="message" rows="5" placeholder="Ketik pesannya..." required></textarea>
+
+          <div style="margin-top:12px;display:flex;gap:10px">
+            <button type="submit" class="btn btn-primary">Kirim</button>
+            <button type="button" class="btn btn-outline" onclick="prefill()">Isi contoh</button>
+          </div>
+          <div id="formNote" class="muted" style="margin-top:10px">Kami tidak benar‑benar mengirim email pada demo ini.</div>
+        </form>
+
+        <aside class="card">
+          <h4 style="margin-top:0">Info tambahan</h4>
+          <p class="muted">Kamu bisa mengganti teks, warna, atau menambahkan komponen. Mau ditambah dark mode atau animasi? Tinggal bilang.</p>
+
+          <div style="margin-top:12px;display:flex;gap:8px;flex-direction:column">
+            <div class="small muted">Lokasi: Bali, Indonesia</div>
+            <div class="small muted">Waktu dibuat: <span id="timeBuilt"></span></div>
+            <div class="small muted">Versi: 1.0</div>
+          </div>
+        </aside>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <div>© <span id="year"></span> WebStarter — dibuat cepat untuk latihan & presentasi.</div>
+      <div style="margin-top:6px" class="muted">Kalau mau, aku tambahin animasi, better form handling, atau convert ke React satu file.</div>
+    </footer>
+  </div>
+
+  <script>
+    // Small interactive bits
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('timeBuilt').textContent = new Date().toLocaleString();
+
+    // Demo: toggle background theme (purely illustrative)
+    const btnTheme = document.getElementById('toggleTheme');
+    btnTheme.addEventListener('click', ()=>{
+      const root = document.documentElement;
+      const dark = root.style.getPropertyValue('--bg') === '#0f1724';
+      if(dark){
+        root.style.setProperty('--bg','#f6f9fc');
+        root.style.setProperty('--card','#ffffff');
+        root.style.setProperty('--muted','#5b6b77');
+        root.style.setProperty('--accent','#60a5fa');
+        btnTheme.textContent = 'Light';
+        document.body.style.color='#071426';
+      } else {
+        root.style.setProperty('--bg','#0f1724');
+        root.style.setProperty('--card','#0b1220');
+        root.style.setProperty('--muted','#9aa4b2');
+        btnTheme.textContent = 'Dark';
+        document.body.style.color='#e6eef8';
+      }
+    });
+
+    // Start demo: scroll to features
+    document.getElementById('startDemo').addEventListener('click', ()=>{
+      document.querySelector('#features').scrollIntoView({behavior:'smooth'});
+    });
+
+    // Simple form handler (client-side only)
+    function handleSubmit(e){
+      e.preventDefault();
+      const name = e.target.name.value;
+      const email = e.target.email.value;
+      const msg = e.target.message.value;
+      // show quick toast
+      showToast(`Terima kasih, ${name.split(' ')[0]}! Pesanmu sudah dicatat.`);
+      e.target.reset();
+    }
+
+    function prefill(){
+      document.getElementById('name').value = 'Diar Primayana';
+      document.getElementById('email').value = 'diar@example.com';
+      document.getElementById('phone').value = '0899xxxxxxx';
+      document.getElementById('message').value = 'Halo! Aku mau tanya soal web ini.';
+    }
+
+    // Tiny toast
+    function showToast(txt){
+      const t = document.createElement('div');
+      t.textContent = txt;
+      t.style.position='fixed';
+      t.style.right='18px';
+      t.style.bottom='18px';
+      t.style.padding='12px 16px';
+      t.style.borderRadius='12px';
+      t.style.background='linear-gradient(90deg,var(--accent),var(--accent-2))';
+      t.style.color='#021025';
+      t.style.boxShadow='0 8px 26px rgba(2,6,23,0.6)';
+      document.body.appendChild(t);
+      setTimeout(()=>{t.style.opacity='0';t.style.transform='translateY(8px)';},2500);
+      setTimeout(()=>t.remove(),3200);
+    }
+
+    // Accessibility: add keyboard shortcut 'g' to focus gallery
+    document.addEventListener('keydown', (e)=>{
+      if(e.key.toLowerCase()==='g'){
+        document.querySelector('#gallery').scrollIntoView({behavior:'smooth'});
+      }
+    });
+  </script>
+</body>
+</html>
